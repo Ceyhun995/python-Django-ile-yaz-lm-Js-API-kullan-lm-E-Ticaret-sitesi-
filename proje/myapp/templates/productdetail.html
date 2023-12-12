@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+
+{% include "Components/_nav.html" %}
+
+{% block extra %}
+<style>
+.star-rating{
+    font-size:0;
+    white-space:nowrap;
+    display:inline-block;
+    width:250px;
+    height:50px;
+    overflow:hidden;
+    position:relative;
+    background:
+        url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+    background-size: contain;
+    i{
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 20%;
+      z-index: 1;
+      background: 
+          url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');  
+      background-size: contain;
+    }
+    input{ 
+      -moz-appearance:none;
+      -webkit-appearance:none;
+      opacity: 0;
+      display:inline-block;
+      width: 20%;
+      height: 100%; 
+      margin:0;
+      padding:0;
+      z-index: 2;
+      position: relative;
+      &:hover + i,
+      &:checked + i{
+        opacity:1;    
+      }
+    }
+    i ~ i{
+      width: 40%;
+    }
+    i ~ i ~ i{
+      width: 60%;
+    }
+    i ~ i ~ i ~ i{
+      width: 80%;
+    }
+    i ~ i ~ i ~ i ~ i{
+      width: 100%;
+    }
+  }
+  
+  
+  .choice{
+    position: fixed;
+    top: 0;
+    left:0;
+    right:0;
+    text-align: center;
+    padding: 20px;
+    display:block;
+  }
+  
+
+
+
+</style>
+{% endblock extra %}
+{% block body %}
+
+<!-- ***** Main Banner Area Start ***** -->
+<div class="page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <h2>Ürün Detay Sayfası</h2>
+                    <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+
+<!-- ***** Product Area Starts ***** -->
+<section class="section" id="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="left-images">
+
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{detail.product_image.url}}" class="d-block w-75" alt="product_firs_img">
+                            </div>
+                            {% if detail.product_image2 %}
+                            <div class="carousel-item">
+                                <img src="{{detail.product_image2.url}}" class="d-block w-75" alt="product_second_img">
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                    <h4>{{detail.product_name}}</h4>
+                    <span class="price">Fiyat :{{detail.product_price}} TL</span>
+                    <ul class="stars">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt
+                        ut labore.</span>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
+                    </div>
+                    <div class="quantity-content">
+                        <div class="left-content">
+                            <h6>No. of Orders</h6>
+                        </div>
+                        <div class="right-content">
+                            <div class="quantity buttons_added">
+                                <input type="button" value="-" class="minus"><input type="number" step="1" min="1"
+                                    max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4"
+                                    pattern="" inputmode=""><input type="button" value="+" class="plus">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total">
+                        <h4>Total: $210.00</h4>
+                        {% if request.user.is_authenticated %}
+                        <div class="main-border-button"><a onclick="HandleAddBasket('{{detail.id}}')">Sepete Ekle</a>
+
+                        </div>
+
+                        {% else %}
+                        <p>Ürünü Sepete Eklemek İçin Giriş yapmalısınız</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <div class="commentsAll">
+                <h5>Yorumlar</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="userComment">
+                            <i>icon</i>
+                            <p>27 dec 2023</p>
+                            <div class="rating">
+                                <span class="star-rating">
+                                    <input type="radio" name="rating" value="1"><i></i>
+                                    <input type="radio" name="rating" value="2"><i></i>
+                                    <input type="radio" name="rating" value="3"><i></i>
+                                    <input type="radio" name="rating" value="4"><i></i>
+                                    <input type="radio" name="rating" value="5"><i></i>
+                                  </span>
+                                  <strong class="choice">Choose a rating</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="formComment ">
+                        <form action="">
+                            <input type="text" name="name" placeholder="Adınız"> <br>
+                            <input type="email" name="email" placeholder="Email adresiniz"> <br>
+                            <textarea name="comment" cols="30" rows="10" placeholder="Mesajınız"></textarea>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                 <!--
+                <div class="mesaj" id="message">
+                    {% for comment in detail.productdetail.all %}
+
+
+                {% for key, comments in updateform %}
+                  
+                
+                <div class="modal fade" id="updateModal-{{key}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'update' detail.id comment.id %}" method="POST" >
+                                    {% csrf_token %}
+                                    {{comments}}
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+
+                    <p><a href="{% url 'setting' request.user.id %}">{{comment.comment_username}}</a> tarafından yazıldı
+                    </p>
+                    <p>{{comment.comment_message}}</p>
+
+                    <button type="submit" class="btn btn-warning"><a href="{% url 'sil' detail.id comment.id %}"
+                            class="list-unstyled">Sil</a></button>
+
+                    <button type="submit" data-toggle="modal" data-target="#updateModal-{{comment.id}}">Güncelle</button>
+
+
+                    <hr>
+                    {% endfor %}
+                </div>
+               
+                <div class="makeComments">
+                    <form action="{% url 'bireysel' detail.id %}" method="POST">
+                        {% csrf_token %}
+
+                        {{commentform}} <br>
+                        <button type="submit">Yorum Ekle</button>
+                    </form>
+
+                </div>
+-->
+            </div>
+        </div>
+</section>
+<!-- ***** Product Area Ends ***** -->
+
+
+
+
+<script>
+    function decreaseQuantity() {
+        var quantityInput = document.querySelector('input[name="quantity"]');
+        var currentValue = parseInt(quantityInput.value, 10);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    }
+
+    function increaseQuantity() {
+        var quantityInput = document.querySelector('input[name="quantity"]');
+        var currentValue = parseInt(quantityInput.value, 10);
+        quantityInput.value = currentValue + 1;
+    }
+
+</script>
+
+
+
+{% endblock body %}

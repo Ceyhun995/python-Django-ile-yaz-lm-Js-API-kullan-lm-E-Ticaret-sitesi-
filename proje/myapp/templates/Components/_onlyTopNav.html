@@ -1,0 +1,71 @@
+{% load static %}
+
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{% url 'home' %}" class="logo">
+                        <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="/" class="active">Anasayfa</a></li>
+                        <li class="scroll-to-section"><a href="?filtrele=erkek">Erkek</a></li>
+                        <li class="scroll-to-section"><a href="?filtrele=kadın">Kadın</a></li>
+                        <li class="scroll-to-section"><a href="?filtrele=cocuk">Çocuk</a></li>
+
+                        <li class="submenu">
+                            <a href="javascript:;">Diger</a>
+                            <ul>
+                                <li><a href="{% url 'hakkinda' %}">Hakkımızda</a></li>
+                                <li><a href="{% url 'products' %}">Ürünler</a></li>
+                                <li><a href="{% url 'iletisim' %}">İletişim</a></li>
+
+                            </ul>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'sepet' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li><a href="{% url 'fav' %}"> <i class="fa fa-star"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <p class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{request.user.username}}                            </p>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{% url 'setting' user.id %}">Kullanıcı Ayarları</a>
+                              {% if request.user.is_superuser %}
+                              <a class="dropdown-item" href="/admin">Admin Panel</a>
+
+                              {% endif %}
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{% url 'cikis' %}">Çıkış</a>
+                            </div>
+                          </li>
+                        {% else %}
+                        <li class="scroll-to-section"><a href="{% url 'giris' %}">Giriş Yap</a></li>
+
+                        {% endif %}
+
+
+
+                        <!-- <li class="submenu">
+                            <a href="javascript:;">Features</a>
+                            <ul>
+                                <li><a href="#">Features Page 1</a></li>
+                                <li><a href="#">Features Page 2</a></li>
+                                <li><a href="#">Features Page 3</a></li>
+                                <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page
+                                        4</a></li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                    <a class="menu-trigger">
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

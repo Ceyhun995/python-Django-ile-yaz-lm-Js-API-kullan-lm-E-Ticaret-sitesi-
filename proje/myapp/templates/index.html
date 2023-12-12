@@ -1,0 +1,469 @@
+{% extends "base.html" %}
+
+{% include ".Components/_nav.html" %}
+
+{% block body %}
+<div id="flash-message"></div>
+
+{% if only_men %}
+
+<!-- ***** Men Area Starts ***** -->
+<section class="section" id="men">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Men's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="men-item-carousel">
+                    <div class="owl-men-item owl-carousel">
+                        <!--Erkek Giyim-->
+                        {% for men in mens %}
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="{% url 'bireysel' men.id %}"><i class="fa fa-eye"></i></a></li>
+                                        <li><a onclick="HandleFavAdd('{{men.id}}')"><i class="fa fa-star"></i></a></li>
+                                        {% if request.user.is_authenticated %}
+
+                                        <li id="cardbasket"><a style="cursor: pointer;"
+                                                onclick="HandleAddBasket('{{men.id}}')"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
+                                        {% else %}
+                                        <li id="else"><a style="cursor: pointer;"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
+                                        {% endif %}
+
+                                    </ul>
+                                </div>
+                                <img style="aspect-ratio: 1/1;" src="{{men.product_image.url}}" alt="erkek giyim">
+                                <p id="info"></p>
+                            </div>
+                            <div class="down-content">
+                                <h4>{{men.product_name}}</h4>
+                                <span>{{men.product_price}}$</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<!-- ***** Men Area Ends ***** -->
+{% elif only_women %}
+<!-- ***** Women Area Starts ***** -->
+<section class="section" id="women">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Women's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="women-item-carousel">
+                    <div class="owl-women-item owl-carousel">
+                        {% for women in model %}
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="{% url 'bireysel' women.id %}"><i class="fa fa-eye"></i></a></li>
+                                        <li><a onclick="HandleFavAdd('{{women.id}}')"><i class="fa fa-star"></i></a>
+                                        </li>
+                                        {% if request.user.is_authenticated %}
+
+                                        <li id="cardbasket"><a style="cursor: pointer;"
+                                                onclick="HandleAddBasket('{{women.id}}')"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
+                                        {% else %}
+                                        <li id="else"><a style="cursor: pointer;"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
+                                        {% endif %}
+
+                                    </ul>
+                                </div>
+                                <img src="{{women.product_image.url}}" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>{{women.product_name}}</h4>
+                                <span>{{women.product_price}}$</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Women Area Ends ***** -->
+{% elif only_kids %}
+<section class="section" id="kids">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Kid's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="kid-item-carousel">
+                    <div class="owl-kid-item owl-carousel ">
+                        {% for kids in model %}
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <img src="{{ kids.product_image.url }}" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>{{ kids.product_name }}</h4>
+                                <span>{{ kids.product_price }}$</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% else %}
+
+<section class="section" id="men">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Men's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="men-item-carousel">
+                    <div class="owl-men-item owl-carousel">
+                        <!--Erkek Giyim-->
+                        {% for men in mens %}
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="{% url 'bireysel' men.id %}"><i class="fa fa-eye"></i></a></li>
+                                        {% if request.user.is_authenticated %}
+
+                                        <li><a onclick="HandleFavAdd('{{men.id}}')"><i class="fa fa-star"></i></a></li>
+                                        <li id="cardbasket"><a style="cursor: pointer;"
+                                                onclick="HandleAddBasket('{{men.id}}')"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
+                                        <li id="else"><a style="cursor: pointer;"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
+                                        {% endif %}
+
+                                    </ul>
+                                </div>
+                                <img style="aspect-ratio: 1/1;" src="{{men.product_image.url}}" alt="erkek giyim">
+                                <p id="info"></p>
+                            </div>
+                            <div class="down-content">
+                                <h4>{{men.product_name}}</h4>
+                                <span>{{men.product_price}}$</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- ***** Men Area Ends ***** -->
+
+<section class="section" id="women">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Women's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="women-item-carousel">
+                    <div class="owl-women-item owl-carousel">
+                        {% for women in womens %}
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <img src="{{ women.product_image.url }}" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>{{ women.product_name }}</h4>
+                                <span>{{ women.product_price }}$</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Women Area Ends ***** -->
+
+<section class="section" id="kids">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Kid's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="kid-item-carousel">
+                    <div class="owl-kid-item owl-carousel ">
+                        {% for kid in kids %}
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <img src="{{ kid.product_image.url }}" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>{{ kid.product_name }}</h4>
+                                <span>{{ kid.product_price }}$</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Kids Area Ends ***** -->
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+<!-- ***** Explore Area Starts ***** -->
+<section class="section" id="explore">
+    <div class="container">
+
+        <div class="row">
+            {% for explore in explores %}
+            <div class="col-lg-6">
+                <div class="left-content">
+                    <h2>{{explore.explore_first_title}}</h2>
+                    <span>{{explore.explore_content1}}</span>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i>
+                        <p>{{explore.explore_content2}}</p>
+                    </div>
+                    <p> {{explore.explore_content3}}</p>
+                    <p> {{explore.explore_content4}}</p>
+                    <div class="main-border-button">
+                        <a href="{% url 'products' %}">Ürünleri Keşfet</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="right-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="leather">
+                                <h4>{{explore.explore_title}}</h4>
+                                <span>{{explore.explore_title2}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="first-image">
+                                <img src="{{explore.image.url}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+<!-- ***** Explore Area Ends ***** -->
+
+<!-- ***** Social Area Starts ***** -->
+<section class="section" id="social">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Social Media</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row images">
+            {% for sosial in sosials %}
+            <div class="col-2">
+                <div class="thumb">
+                    <div class="icon">
+                        <a href="{{sosial.sosial_link}}">
+                            <h6>{{sosial.sosial_title}}</h6>
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                    <img src="{{sosial.sosial_image.url}}" alt="Sosyal Media">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+<!-- ***** Social Area Ends ***** -->
+
+<script>
+    window.onload = function () {
+        const favs = JSON.parse(localStorage.getItem("favoriler")) || []; // Favorileri localStorage'dan alın ve JSON olarak ayrıştırın
+    }
+
+    async function HandleFavAdd(id) {
+
+        const request = await fetch(`http://127.0.0.1:8000/api/fav/urun/${id}`);
+
+        const response = await request.json();
+
+        if (response === "Ürün Bulunmadı") {
+            return;
+        }
+
+        console.log("gelen veri", response);
+
+        const data = JSON.stringify(response);
+
+        let favoriler = JSON.parse(localStorage.getItem("favoriler")) || [];
+
+        favoriler.push(data);
+
+        localStorage.setItem("favoriler", JSON.stringify(favoriler));
+        alert('favorilere eklendi');
+    }
+
+
+</script>
+
+
+{% endblock body %}

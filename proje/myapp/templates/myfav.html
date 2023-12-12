@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+<div class="container">
+  <h4>Favori Ürünlerim</h4>
+  <div  id="favcontainer">
+    
+    
+  </div>
+</div>
+
+<script>
+  // Favorileri localStorage'dan çekmek için
+  const favcontainer = document.getElementById('favcontainer');
+  const favoriler = JSON.parse(localStorage.getItem('favoriler')) || [];
+
+  favoriler.forEach((item) => {
+    const items = JSON.parse(item);
+    
+    const productContainer = document.createElement('div');
+    productContainer.classList.add('row', 'mt-4');
+
+    productContainer.innerHTML = `
+    
+    <div class="col-md-6"> 
+      <img src="${items.image}">
+    </div>
+
+    <div class="col-md-6" style="margin-top:60px"> 
+
+      <h5>Kategorisi: ${items.category}</h5>
+      <h5>İsmi: ${items.name}</h5>
+      <h5>Fiyatı: ${items.price}</h5>
+      <h5>Stok Bilgisi: ${items.stok}</h5>
+      <h5>Hakkında: ${items.content}</h5>
+      <button type="button" class="btn btn-danger" onclick="sil(${items.id})">Sil</button>
+      <button type="button" class="btn btn-success"  onclick="HandleAddBasket('${items.id}')">sepete ekle</button>
+
+    </div>
+
+    `;
+    
+
+    favcontainer.appendChild(productContainer);
+  });
+
+  function sil(itemid) {
+    const favoriler = JSON.parse(localStorage.getItem('favoriler')) || [];
+    const updatedFavoriler = favoriler.filter((item) => {
+      const parsedItem = JSON.parse(item);
+      return parsedItem.id !== itemid;
+    });
+    
+    localStorage.setItem('favoriler', JSON.stringify(updatedFavoriler));
+    location.reload();
+  }
+</script>
+
+
+
+
+{% endblock body %}
